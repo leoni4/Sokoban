@@ -1,23 +1,22 @@
-/**
- * @author       Digitsensitive <digit.sensitivee@gmail.com>
- * @copyright    2018 Digitsensitive
- * @license      Digitsensitive
- */
 
 export class MainScene extends Phaser.Scene {
-  private phaserSprite: Phaser.GameObjects.Sprite;
+    private tileSet: Phaser.Tilemaps.Tileset;
+    private tileMap: Phaser.Tilemaps.Tilemap;
 
-  constructor() {
-    super({
-      key: "MainScene"
-    });
-  }
+    constructor() {
+      super({
+          key: "MainScene"
+      });
+    }
 
-  preload(): void {
-    this.load.image("logo", "./assets/boilerplate/phaser.png");
-  }
+    preload(): void {
+      this.load.atlas('assets', './assets/img/assets.png', './assets/img/assets.json');
+      this.load.tilemapTiledJSON('level', './assets/tiles1.json');
+    }
 
-  create(): void {
-    this.phaserSprite = this.add.sprite(400, 300, "logo");
-  }
+    create(): void {
+      this.tileMap = this.make.tilemap({key:'level'});
+      this.tileSet = this.tileMap.addTilesetImage('assets');
+      this.tileMap.createStaticLayer('Tile Layer 1', this.tileSet, x, y);
+    }
 }
